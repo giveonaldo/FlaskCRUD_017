@@ -1,8 +1,8 @@
 ## Screenshot gambar
 Tugas CRUD menggunakan Flask.
 ### View Home
-![Home](scrennshot/home.png)
+![Home](screenshot/home.png)
 ### View Add
-![Add](scrennshot/tambah.png)
+![Add](screenshot/tambah.png)
 ### View Edit
-![Edit](scrennshot/edit.png)
+![Edit](screenshot/edit.png)
