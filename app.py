@@ -25,7 +25,23 @@ def index():
     buku = conn.execute('SELECT * FROM Buku').fetchall()
     conn.close()
     return render_template('index.html', buku=buku)
+
+# Route add Buku
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    if request.method == 'POST':
+        judul = request.form['judul']
+        penulis = request.form['penulis']
+        tahun_terbit = request.form['tahun_terbit']
+        conn = get_db_connection()
+        conn.execute('INSERT INTO Buku (judul, penulis, tahun_terbit) VALUES (?, ?, ?)',
+                     (judul, penulis, tahun_terbit))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    return render_template('add.html')
     
+ 
 # main method for flask
 if __name__ == '__main__':
     app.run(debug=True)
