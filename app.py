@@ -40,6 +40,32 @@ def add():
         conn.close()
         return redirect(url_for('index'))
     return render_template('add.html')
+
+# Delete
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM Buku WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+# Edit Route
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    conn = get_db_connection()
+    buku = conn.execute('SELECT * FROM Buku WHERE id = ?', (id,)).fetchone()
+    if request.method == 'POST':
+        judul = request.form['judul']
+        penulis = request.form['penulis']
+        tahun_terbit = request.form['tahun_terbit']
+        conn.execute('UPDATE Buku SET judul = ?, penulis = ?, tahun_terbit = ? WHERE id = ?',
+                     (judul, penulis, tahun_terbit, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    conn.close()
+    return render_template('edit.html', buku=buku)
     
  
 # main method for flask
