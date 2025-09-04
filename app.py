@@ -18,6 +18,14 @@ with get_db_connection() as conn:
     )''')
     conn.commit()
     
+# Route Home
+@app.route('/')
+def index():
+    conn = get_db_connection()
+    buku = conn.execute('SELECT * FROM Buku').fetchall()
+    conn.close()
+    return render_template('index.html', buku=buku)
+    
 # main method for flask
 if __name__ == '__main__':
     app.run(debug=True)
