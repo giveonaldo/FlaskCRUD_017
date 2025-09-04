@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
+app = Flask(__name__)
 
 DATABASE = 'buku.db'
 
@@ -16,3 +17,7 @@ with get_db_connection() as conn:
         tahun_terbit INTEGER NOT NULL
     )''')
     conn.commit()
+    
+# main method for flask
+if __name__ == '__main__':
+    app.run(debug=True)
